@@ -6,13 +6,10 @@
 #
 
 # Source Prezto.
-if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
-fi
+source /etc/zsh/prezto/init.zsh
 
 # Customize to your needs...
 
-source /etc/runcoms/zshrc
 
 if [ -d ~/.gem/ruby ]; then
 	for v in ~/.gem/ruby/*; do
