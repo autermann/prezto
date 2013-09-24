@@ -69,7 +69,7 @@ alias mpc="ncmpcpp"
 alias now-playing="ncmpcpp --now-playing"
 alias pacman="sudo pacman"
 alias p="sudo pacman"
-alias y="yaourt"
+alias y="sudo pacman"
 alias ctrl="systemctl"
 alias mp="mplayer"
 alias cower='cower --color=auto'
@@ -119,4 +119,17 @@ function format-xml() {
 	cat $1 > $T
 	xmllint --format $T > $1
 	rm -f $T
+}
+
+function delete(){
+  local f=$1          
+  rm `readlink ${f}`
+  rm ${f}
+  touch ${f};
+}
+
+function relink() {
+	for d in {/home/auti,/media/{Hubert,Ogden,Fridolin}}/Movies; do
+		if [[ -d ${d} ]]; then ln -sf ${d}/* /home/auti/media/Movies; fi
+	done
 }
