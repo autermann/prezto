@@ -153,5 +153,5 @@ zstyle ':prezto:module:terminal' auto-title 'yes'
 
 DEFAULT_USER="auti"
 
-source /etc/zsh/modules/prompt/functions/prompt_agnoster_setup
+source /etc/zsh/prezto/modules/prompt/functions/prompt_agnoster_setup
 
