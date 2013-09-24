@@ -1,0 +1,45 @@
+source /etc/runcoms/zpreztorc
+
+zstyle ':prezto:*:*' case-sensitive 'no'
+zstyle ':prezto:*:*' color 'yes'
+
+# zstyle ':prezto:load' zmodule 'attr' 'stat'
+# zstyle ':prezto:load' zfunction 'zargs' 'zmv'
+
+zstyle ':prezto:load' pmodule \
+		   'environment' \
+		   'terminal' \
+		   'editor' \
+		   'history' \
+		   'directory' \
+		   'spectrum' \
+		   'utility' \
+		   'completion' \
+		   'wakeonlan' \
+		   'pacman' \
+		   'rsync' \
+		   'utility' \
+		   'git' \
+		   'syntax-highlighting' \
+		   'history-substring-search' \
+		   'prompt'
+
+zstyle ':prezto:module:editor' keymap 'vi'
+zstyle ':prezto:module:editor' dot-expansion 'yes'
+zstyle ':prezto:module:git:status:ignore' submodules 'all'
+zstyle ':prezto:module:pacman' frontend 'yaourt'
+zstyle ':prezto:module:prompt' theme 'agnoster'
+
+zstyle ':prezto:module:syntax-highlighting' highlighters \
+	'main' \
+	'brackets' \
+	'pattern' \
+	'cursor'
+
+zstyle ':prezto:module:terminal' auto-title 'yes'
+
+
+DEFAULT_USER="auti"
+
+source /etc/zsh/modules/prompt/functions/prompt_agnoster_setup
+
