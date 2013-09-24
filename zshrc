@@ -120,3 +120,8 @@ function format-xml() {
 	xmllint --format $T > $1
 	rm -f $T
 }
+
+cdpath=('~' '*' '~' '.' '..')
+zstyle ':completion:*:complete:(cd|pushd):*' tag-order \
+	'local-directories named-directories path-directories'
+zstyle ':completion:*' group-name ''
