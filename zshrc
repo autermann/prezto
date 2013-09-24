@@ -133,3 +133,8 @@ function relink() {
 		if [[ -d ${d} ]]; then ln -sf ${d}/* /home/auti/media/Movies; fi
 	done
 }
+
+cdpath=('~' '*' '~' '.' '..')
+zstyle ':completion:*:complete:(cd|pushd):*' tag-order \
+	'local-directories named-directories path-directories'
+zstyle ':completion:*' group-name ''
