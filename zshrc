@@ -1,4 +1,4 @@
-#
+#G
 # Executes commands at the start of an interactive session.
 #
 # Authors:
@@ -121,7 +121,7 @@ function format-xml() {
 	rm -f $T
 }
 
-cdpath=('~' '*' '~' '.' '..')
+cdpath=('.' '..' '~')
 zstyle ':completion:*:complete:(cd|pushd):*' tag-order \
 	'local-directories named-directories path-directories'
 zstyle ':completion:*' group-name ''
