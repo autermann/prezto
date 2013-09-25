@@ -121,7 +121,6 @@ function format-xml() {
 	rm -f $T
 }
 
-<<<<<<< HEAD
 function delete(){
   local f=$1          
   rm `readlink ${f}`
