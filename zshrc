@@ -1,4 +1,4 @@
-#
+#G
 # Executes commands at the start of an interactive session.
 #
 # Authors:
@@ -121,6 +121,7 @@ function format-xml() {
 	rm -f $T
 }
 
+<<<<<<< HEAD
 function delete(){
   local f=$1          
   rm `readlink ${f}`
@@ -134,7 +135,7 @@ function relink() {
 	done
 }
 
-cdpath=('~' '*' '~' '.' '..')
+cdpath=('.' '..' '~')
 zstyle ':completion:*:complete:(cd|pushd):*' tag-order \
 	'local-directories named-directories path-directories'
 zstyle ':completion:*' group-name ''
