@@ -13,9 +13,10 @@ source /etc/zsh/prezto/init.zsh
 
 if [ -d ~/.gem/ruby ]; then
 	for v in ~/.gem/ruby/*; do
-		[ -d $v/bin ] && PATH=$PATH:$v/bin
+		[ -d $v/bin ] && PATH="$PATH:$v/bin"
 	done
 fi
+PATH="./node_modules/.bin:$PATH"
 
 export PATH
 
