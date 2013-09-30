@@ -1,80 +1,116 @@
-Configuration Files
-===================
+Prezto — Instantly Awesome Zsh
+==============================
 
-Zsh has several system-wide and user-local configuration files.
+Prezto is the configuration framework for [Zsh][1]; it enriches the command line
+interface environment with sane defaults, aliases, functions, auto completion,
+and prompt themes.
 
-Prezto has one user-local configuration file.
+Installation
+------------
 
-System-wide configuration files are installation-dependent but are installed
-in */etc* by default.
+Prezto will work with any recent release of Zsh, but the minimum recommended
+version is 4.3.10.
 
-User-local configuration files have the same name as their global counterparts
-but are prefixed with a dot (hidden). Zsh looks for these files in the path
-stored in the `$ZDOTDIR` environmental variable. However, if said variable is
-not defined, Zsh will use the user's home directory.
+  1. Launch Zsh:
 
-File Descriptions
------------------
+        zsh
 
-The configuration files are read in the following order:
+  2. Clone the repository:
 
-  01. /etc/zshenv
-  02. ~/.zshenv
-  03. /etc/zprofile
-  04. ~/.zprofile
-  05. /etc/zshrc
-  06. ~/.zshrc
-  07. ~/.zpreztorc
-  08. /etc/zlogin
-  09. ~/.zlogin
-  10. ~/.zlogout
-  11. /etc/zlogout
+        git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
 
-### zshenv
+  3. Create a new Zsh configuration by copying the Zsh configuration files
+     provided:
 
-This file is sourced by all instances of Zsh, and thus, it should be kept as
-small as possible and should only define environment variables.
+        setopt EXTENDED_GLOB
+        for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
+          ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
+        done
 
-### zprofile
+  4. Set Zsh as your default shell:
 
-This file is similar to zlogin, but it is sourced before zshrc. It was added
-for [KornShell][1] fans. See the description of zlogin below for what it may
-contain.
+        chsh -s /bin/zsh
 
-zprofile and zlogin are not meant to be used concurrently but can be done so.
+  5. Open a new Zsh terminal window or tab.
 
-### zshrc
+### Troubleshooting
 
-This file is sourced by interactive shells. It should define aliases,
-functions, shell options, and key bindings.
+If you are not able to find certain commands after switching to *Prezto*,
+modify the `PATH` variable in *~/.zshenv* then open a new Zsh terminal
+window or tab.
 
-## zpreztorc
+Updating
+--------
 
-This file configures Prezto.
+Pull the latest changes and update submodules.
 
-### zlogin
+    git pull && git submodule update --init --recursive
 
-This file is sourced by login shells after zshrc, and thus, it should contain
-commands that need to execute at login. It is usually used for messages such as
-[fortune][2], [msgs][3], or for the creation of files.
+Usage
+-----
 
-This is not the file to define aliases, functions, shell options, and key
-bindings. It should not change the shell environment.
+Prezto has many features disabled by default. Read the source code and
+accompanying README files to learn of what is available.
 
-### zlogout
+### Modules
 
-This file is sourced by login shells during logout. It should be used for
-displaying messages and the deletion of files.
+  1. Browse */modules* to see what is available.
+  2. Load the modules you need in *~/.zpreztorc* then open a new Zsh terminal
+     window or tab.
 
-Authors
+### Themes
+
+  1. For a list of themes, type `prompt -l`.
+  2. To preview a theme, type `prompt -p name`.
+  3. Load the theme you like in *~/.zpreztorc* then open a new Zsh terminal
+     window or tab.
+
+     ![sorin theme][2]
+
+Customization
+-------------
+
+The project is managed via [Git][3]. It is highly recommended that you fork this
+project; so, that you can commit your changes and push them to [GitHub][4] to
+not lose them. If you do not know how to use Git, follow this [tutorial][5] and
+bookmark this [reference][6].
+
+Resources
+---------
+
+The [Zsh Reference Card][7] and the [zsh-lovers][8] man page are indispensable.
+
+License
 -------
 
-*The authors of these files should be contacted via the [issue tracker][4].*
+(The MIT License)
 
-  - [Sorin Ionescu](https://github.com/sorin-ionescu)
+Copyright (c) 2009-2012 Robby Russell, Sorin Ionescu, and contributors.
 
-[1]: http://www.kornshell.com
-[2]: http://en.wikipedia.org/wiki/Fortune_(Unix)
-[3]: http://www.manpagez.com/man/1/msgs
-[4]: https://github.com/sorin-ionescu/prezto/issues
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+[1]: http://www.zsh.org
+[2]: http://i.imgur.com/nBEEZ.png "sorin theme"
+[3]: http://git-scm.com
+[4]: https://github.com
+[5]: http://gitimmersion.com
+[6]: http://gitref.org
+[7]: http://www.bash2zsh.com/zsh_refcard/refcard.pdf
+[8]: http://grml.org/zsh/zsh-lovers.html
 
