@@ -25,7 +25,6 @@ alias du="du -hs"
 alias l='ls -Flh --color=auto --group-directories-first'
 alias la='ls -la --color=auto --group-directories-first'
 alias lad='ls -d .*(/) --group-directories-first'
-alias less='less -R --group-directories-first'
 alias lh='ls -hAl --color=auto --group-directories-first'
 alias ll='ls -l --color=auto --group-directories-first'
 alias ln='ln -i --group-directories-first'
@@ -46,7 +45,6 @@ alias lsx='ls -l *(*) --group-directories-first'
 alias cl="clear"
 alias diff="colordiff -u"
 alias rs="rsync -ahHPv"
-alias less="less -R"
 alias mv="mv -i"
 alias cp="cp -i"
 alias ln="ln -i"
