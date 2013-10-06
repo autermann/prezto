@@ -74,6 +74,8 @@ alias cower='cower --color=auto'
 alias batt='sudo tlp-stat -b'
 alias perl-rename='perl-rename -i'
 alias prename='perl-rename -i'
+alias encrypt='openssl enc -a -salt -aes-256-cbc'
+alias decrypt='encrypt -d'
 
 
 function calc() {
