@@ -74,6 +74,8 @@ alias ctrl="systemctl"
 alias mp="mplayer"
 alias cower='cower --color=auto'
 alias batt='sudo tlp-stat -b'
+alias perl-rename='perl-rename -i'
+alias prename='perl-rename -i'
 
 
 function calc() {
