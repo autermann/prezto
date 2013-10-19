@@ -8,17 +8,6 @@
 # Source Prezto.
 source /etc/zsh/prezto/init.zsh
 
-# Customize to your needs...
-
-
-if [ -d ~/.gem/ruby ]; then
-	for v in ~/.gem/ruby/*; do
-		[ -d $v/bin ] && PATH=$PATH:$v/bin
-	done
-fi
-
-export PATH
-
 alias x="exit"
 alias df="pydf -Bh"
 alias du="du -hs"
