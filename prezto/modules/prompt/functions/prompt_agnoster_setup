@@ -98,7 +98,7 @@ function prompt_agnoster_git {
   if git-info; then
     [[ -n "$git_info[status]" ]] && color="yellow" || color="green"
     prompt_agnoster_segment $color black \
-        "\ue0a0 $(coalesce $git_info[branch] $git_info[commit])$git_info[status]"
+        "\ue0a0 $(coalesce $git_info[branch] $git_info[commit])$git_info[status] "
     [[ -n "$git_info[action]" ]] && prompt_agnoster_segment black red "$git_info[action]"
   fi
 }
@@ -139,7 +139,7 @@ function prompt_agnoster_setup {
     'branch' '%b' \
     'commit' '%c' \
     'action' '%s' \
-    'status' '%A%B%S%a%d%m%r%U%u '
+    'status' '%A%B%S%a%d%m%r%U%u'
 
   PROMPT='%{%f%b%k%}$(prompt_agnoster_build) '
   RPROMPT='%{%K{black}%F{yellow}%}%}%T%{%f%k%}'
