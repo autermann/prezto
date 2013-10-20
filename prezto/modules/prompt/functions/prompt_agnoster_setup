@@ -94,11 +94,12 @@ function prompt_agnoster_status {
 }
 
 function prompt_agnoster_git {
-  local color
+  local bg st br
   if git-info; then
-    [[ -n "$git_info[status]" ]] && color="yellow" || color="green"
-    prompt_agnoster_segment $color black \
-        "\ue0a0 $(coalesce $git_info[branch] $git_info[commit])$git_info[status] "
+    [[ -n "$git_info[status]" ]] && bg="yellow" || bg="green"
+    st=${git_info[status]:+$git_info[status] }
+    br=$(coalesce $git_info[branch] $git_info[commit])
+    prompt_agnoster_segment $bg black "\ue0a0 $br$st"
     [[ -n "$git_info[action]" ]] && prompt_agnoster_segment black red "$git_info[action]"
   fi
 }
