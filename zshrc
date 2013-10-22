@@ -66,6 +66,14 @@ alias prename='perl-rename -i'
 alias encrypt='openssl enc -a -salt -aes-256-cbc'
 alias decrypt='encrypt -d'
 
+function dev() {
+	sudo systemctl ${1:-start} \
+		mongodb    \
+		postgresql \
+		tomcat6    \
+		php-fpm    \
+		nginx
+}
 
 function calc() {
 	echo $(($*));
