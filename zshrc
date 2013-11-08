@@ -72,7 +72,7 @@ function calc() {
 }
 
 function to-alac() {
-	for f in *.flac; do
+	for f in **/*.flac; do
 		ffmpeg -i "$f" -vn -acodec alac "${f%.flac}.m4a" && rm -f "$f"
 	done
 }
