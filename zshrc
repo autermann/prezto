@@ -65,6 +65,10 @@ alias perl-rename='perl-rename -i'
 alias prename='perl-rename -i'
 alias encrypt='openssl enc -a -salt -aes-256-cbc'
 alias decrypt='encrypt -d'
+alias start='sudo systemctl start'
+alias stop='sudo systemctl stop'
+alias restart='sudo systemctl restart'
+alias status='sudo systemctl status'
 
 
 function calc() {
@@ -74,30 +78,6 @@ function calc() {
 function to-alac() {
 	for f in **/*.flac; do
 		ffmpeg -i "$f" -vn -acodec alac "${f%.flac}.m4a" && rm -f "$f"
-	done
-}
-
-function start() {
-	for d in $*; do
-		sudo systemctl start $d.service
-	done
-}
-
-function stop(){
-	for d in $*; do
-		sudo systemctl stop $d.service
-	done
-}
-
-function restart(){
-	for d in $*; do
-		sudo systemctl restart $d.service
-	done
-}
-
-function status(){
-	for d in $*; do
-		sudo systemctl status $d.service
 	done
 }
 
@@ -125,7 +105,9 @@ function relink() {
 	done
 }
 
-cdpath=('.' '..' '~')
+cdpath=('.' '..' '~' '/media' /var/run/media/$USER)
 zstyle ':completion:*:complete:(cd|pushd):*' tag-order \
 	'local-directories named-directories path-directories'
 zstyle ':completion:*' group-name ''
+
+setopt localoptions nonomatch
