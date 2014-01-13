@@ -97,4 +97,7 @@ zstyle ':completion:*:complete:(cd|pushd):*' tag-order \
 	'local-directories named-directories path-directories'
 zstyle ':completion:*' group-name ''
 
+
+export ZLE_RPROMPT_INDENT=0
+
 setopt localoptions nonomatch
