@@ -98,6 +98,4 @@ zstyle ':completion:*:complete:(cd|pushd):*' tag-order \
 zstyle ':completion:*' group-name ''
 
 
-export ZLE_RPROMPT_INDENT=0
-
 setopt localoptions nonomatch
