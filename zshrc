@@ -69,6 +69,9 @@ alias start='sudo systemctl start'
 alias stop='sudo systemctl stop'
 alias restart='sudo systemctl restart'
 alias status='sudo systemctl status'
+alias pa-speaker="pactl set-sink-port 0 analog-output-speaker"
+alias pa-dock="pactl set-sink-port 0 analog-output"
+alias pa-headphones="pactl set-sink-port 0 analog-output-headphones"
 
 function dev() {
 	sudo systemctl ${1:-start} \
