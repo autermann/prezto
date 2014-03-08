@@ -73,6 +73,13 @@ alias pa-speaker="pactl set-sink-port 0 analog-output-speaker"
 alias pa-dock="pactl set-sink-port 0 analog-output"
 alias pa-headphones="pactl set-sink-port 0 analog-output-headphones"
 
+alias -g S='>/dev/null 2>&1 &'
+
+alias -s pdf="okular"
+
+function okular  { command okular  $* >/dev/null 2>&1 &; }
+function dolphin { command dolphin $* >/dev/null 2>&1 &; }
+
 function uml {
 	cat $1 | plantuml -tsvg -p | inkscape --without-gui --export-pdf=/dev/stdout /dev/stdin 2>/dev/null >! $(basename $1 .txt).pdf 
 }
