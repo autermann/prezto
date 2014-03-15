@@ -72,6 +72,7 @@ alias status='sudo systemctl status'
 alias pa-speaker="pactl set-sink-port 0 analog-output-speaker"
 alias pa-dock="pactl set-sink-port 0 analog-output"
 alias pa-headphones="pactl set-sink-port 0 analog-output-headphones"
+alias git=hub
 
 alias -g S='>/dev/null 2>&1 &'
 
