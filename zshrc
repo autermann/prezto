@@ -80,6 +80,7 @@ alias -s pdf="okular"
 
 function okular  { command okular  $* >/dev/null 2>&1 &; }
 function dolphin { command dolphin $* >/dev/null 2>&1 &; }
+function kid3 { command kid3 $* >/dev/null 2>&1 &; }
 
 function uml {
 	cat $1 | plantuml -tsvg -p | inkscape --without-gui --export-pdf=/dev/stdout /dev/stdin 2>/dev/null >! $(basename $1 .txt).pdf 
@@ -100,7 +101,7 @@ function calc() {
 
 function to-alac() {
 	for f in **/*.flac; do
-		ffmpeg -i "$f" -vn -acodec alac "${f%.flac}.m4a" && rm -f "$f"
+		ffmpeg -i "$f" -n -acodec alac "${f%.flac}.m4a" && rm -f "$f"
 	done
 }
 
