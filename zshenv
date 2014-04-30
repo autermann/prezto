@@ -53,7 +53,7 @@ path=(
 #
 
 # Set the default Less options.
-export LESS='-g -i -M -R -S -w -z-4'
+export LESS='-g -i -M -R -w -z-4'
 
 # Set the Less input preprocessor.
 if (( $+commands[lesspipe.sh] )); then
