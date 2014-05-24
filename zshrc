@@ -116,6 +116,25 @@ function format-xml() {
 	rm -f $T
 }
 
+function itunes-playlist-to-dir {
+	local PLYLST="$1"
+	local SOURCE="$2" #/var/run/media/auti/Bay/Music
+	local TARGET="$3" #/home/auti/Downloads/Music
+
+	cat "${PLYLST}" \
+		| iconv -f UTF-16LE -t UTF8 \
+		| tail -n +2 \
+		| cut  -s -f27 \
+		| tr -d '\r' \
+		| sed -e 's#M:\\##' -e 's#\\#\/#g' \
+		| sort \
+		| while read entry; do
+			t_dir="${TARGET}/$(echo ${entry} | cut -d '/' -f 1-2)"
+			mkdir -vp "${t_dir}"
+			ln -vs "${SOURCE}/${entry}" "${t_dir}"
+		done
+}
+
 cdpath=('.' '..' '~' '/media' /var/run/media/$USER)
 zstyle ':completion:*:complete:(cd|pushd):*' tag-order \
 	'local-directories named-directories path-directories'
