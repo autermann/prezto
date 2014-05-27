@@ -9,7 +9,7 @@
 source /etc/zsh/prezto/init.zsh
 
 alias x="exit"
-alias df="pydf -Bh"
+alias df="df -hl -x tmpfs -x devtmpfs"
 alias du="du -hs"
 alias l='ls -Flh --color=auto --group-directories-first'
 alias la='ls -la --color=auto --group-directories-first'
