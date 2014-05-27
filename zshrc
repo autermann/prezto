@@ -81,7 +81,6 @@ alias -s pdf="okular"
 
 function okular  { command okular  $* >/dev/null 2>&1 &; }
 function dolphin { command dolphin $* >/dev/null 2>&1 &; }
-function kid3 { command kid3 $* >/dev/null 2>&1 &; }
 
 function uml {
 	cat $1 | plantuml -tsvg -p | inkscape --without-gui --export-pdf=/dev/stdout /dev/stdin 2>/dev/null >! $(basename $1 .txt).pdf
@@ -100,30 +99,6 @@ function calc() {
 	echo $(($*));
 }
 
-function to-alac() {
-	for f in **/*.flac; do
-		ffmpeg -i "$f" -n -acodec alac "${f%.flac}.m4a" && rm -f "$f"
-	done
-}
-
-function to-flac {
-	local f
-	for f in **/*.m4a; do
-		if ffmpeg -i "$f" 2>&1 | grep -q alac; then
-			local n="${f%.m4a}"
-			AtomicParsley "$f" -E \
-				&& ffmpeg -i "$f" -acodec flac "${n}.flac" \
-				&& metaflac --import-picture-from ${n}_artwork_1* \
-				            --remove-tag MAJOR_BRAND \
-				            --remove-tag MINOR_VERSION \
-				            --remove-tag COMPATIBLE_BRANDS \
-				            --remove-tag ENCODER \
-				            "${n}.flac" \
-				&& rm -f "$f" "${n}_artwork_"*
-		fi
-	done
-}
-
 function json-get() {
 	curl -s "$1" | python -m json.tool
 }
@@ -133,25 +108,6 @@ function format-xml() {
 	cat $1 > $T
 	xmllint --format $T > $1
 	rm -f $T
-}
-
-function itunes-playlist-to-dir {
-	local PLYLST="$1"
-	local SOURCE="$2" #/var/run/media/auti/Bay/Music
-	local TARGET="$3" #/home/auti/Downloads/Music
-
-	cat "${PLYLST}" \
-		| iconv -f UTF-16LE -t UTF8 \
-		| tail -n +2 \
-		| cut  -s -f27 \
-		| tr -d '\r' \
-		| sed -e 's#M:\\##' -e 's#\\#\/#g' \
-		| sort \
-		| while read entry; do
-			t_dir="${TARGET}/$(echo ${entry} | cut -d '/' -f 1-2)"
-			mkdir -vp "${t_dir}"
-			ln -vs "${SOURCE}/${entry}" "${t_dir}"
-		done
 }
 
 cdpath=('.' '..' '~' '/media' /var/run/media/$USER)
