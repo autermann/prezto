@@ -92,6 +92,12 @@ function format-xml() {
 	rm -f $T
 }
 
+function rdesktop {
+	local _user=$(echo $1 | cut -d '@' -f1 )
+	local _host=$(echo $1 | cut -d '@' -f2-)
+	command rdesktop -u ${_user} -p $(pass show Remote/${_host}/${_user}) ${_host}
+}
+
 cdpath=('.' '..' '~' '/media' /var/run/media/$USER)
 zstyle ':completion:*:complete:(cd|pushd):*' tag-order \
 	'local-directories named-directories path-directories'
