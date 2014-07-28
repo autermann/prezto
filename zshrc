@@ -1,4 +1,4 @@
-#G
+#
 # Executes commands at the start of an interactive session.
 #
 # Authors:
@@ -108,6 +108,12 @@ function format-xml() {
 	cat $1 > $T
 	xmllint --format $T > $1
 	rm -f $T
+}
+
+function create_database {
+	psql -U postgres -c "DROP DATABASE IF EXISTS $1;"
+	psql -U postgres -c "CREATE DATABASE $1;"
+	psql -U postgres -d $1 -c "CREATE EXTENSION postgis;"
 }
 
 cdpath=('.' '..' '~' '/media' /var/run/media/$USER)
