@@ -74,6 +74,7 @@ alias pa-speaker="pactl set-sink-port 0 analog-output-speaker"
 alias pa-dock="pactl set-sink-port 0 analog-output"
 alias pa-headphones="pactl set-sink-port 0 analog-output-headphones"
 alias git=hub
+alias update-repo='repo-add -n -d -s -f /home/auti/Dropbox/Public/ArchLinux/autermann.db.tar.gz  /home/auti/Dropbox/Public/ArchLinux/*.pkg.tar.xz'
 
 alias -g S='>/dev/null 2>&1 &'
 
