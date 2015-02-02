@@ -74,7 +74,7 @@ alias pa-speaker="pactl set-sink-port 0 analog-output-speaker"
 alias pa-dock="pactl set-sink-port 0 analog-output"
 alias pa-headphones="pactl set-sink-port 0 analog-output-headphones"
 alias git=hub
-
+alias grep="grep --color=auto"
 alias -g S='>/dev/null 2>&1 &'
 
 alias -s pdf="okular"
