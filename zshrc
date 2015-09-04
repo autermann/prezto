@@ -8,8 +8,16 @@
 # Source Prezto.
 source /etc/zsh/prezto/init.zsh
 
+function exists() {
+	type $* >/dev/null 2>&1
+}
+
 alias x="exit"
-alias df="pydf -Bh"
+
+if exists pydf; then
+	alias df="pydf -Bh"
+fi
+
 alias du="du -hs"
 alias l='ls -Flh --color=auto --group-directories-first'
 alias la='ls -la --color=auto --group-directories-first'
@@ -31,10 +39,20 @@ alias lss='ls -l *(s,S,t) --group-directories-first'
 alias lssmall='ls -Srl *(.oL[1,10]) --group-directories-first'
 alias lsw='ls -ld *(R,W,X.^ND/) --group-directories-first'
 alias lsx='ls -l *(*) --group-directories-first'
+
 alias cl="clear"
-alias diff="colordiff -u"
-alias rs="rsync -ahHPv"
-alias exfat-rsync='command rsync -rLvW --size-only --delete'
+
+if exists colordiff; then
+	alias diff="colordiff -u"
+else
+	alias diff="diff -u"
+fi
+
+if exists rsync; then
+	alias rs="rsync -ahHPv"
+	alias exfat-rsync='command rsync -rLvW --size-only --delete'
+fi
+
 alias mv="mv -i"
 alias cp="cp -i"
 alias ln="ln -i"
@@ -42,60 +60,74 @@ alias rm="rm -I --preserve-root"
 alias chown="chown --preserve-root"
 alias chmod="chmod --preserve-root"
 alias chgrp="chgrp --preserve-root"
+
 alias shutdown="sudo shutdown"
 alias reboot="sudo reboot"
 alias poweroff="sudo poweroff"
-alias halt="sudo halt"
+
 alias cpuinfo="lscpu"
 alias meminfo="free -m -l -t"
 alias psmem="ps auxf | sort -nr -k 4"
 alias pscpu="ps auxf | sort -nr -k 3"
-alias wget="wget -c"
-alias top="htop"
-alias mpd="ncmpcpp"
-alias mpc="ncmpcpp"
-alias now-playing="ncmpcpp --now-playing"
+
+if exists wget; then
+	alias wget="wget -c"
+fi
+
+if exists htop; then
+	alias top="htop"
+fi
+
 alias pacman="sudo pacman"
 alias p="sudo pacman"
 alias y="yaourt"
 alias ctrl="systemctl"
 alias mp="mplayer"
-alias cower='cower --color=auto'
-alias batt='sudo tlp-stat -b'
-alias perl-rename='perl-rename -i'
-alias prename='perl-rename -i'
+if exists cower; then
+	alias cower='cower --color=auto'
+fi
+if exists tlp-stat; then
+	alias batt='sudo tlp-stat -b'
+fi
+if exists perl-rename; then
+	alias perl-rename='perl-rename -i'
+	alias prename='perl-rename -i'
+fi
 alias encrypt='openssl enc -a -salt -aes-256-cbc'
 alias decrypt='encrypt -d'
-alias start='sudo systemctl start'
-alias stop='sudo systemctl stop'
-alias restart='sudo systemctl restart'
-alias status='sudo systemctl status'
+if exists systemctl; then
+	alias start='sudo systemctl start'
+	alias stop='sudo systemctl stop'
+	alias restart='sudo systemctl restart'
+	alias status='sudo systemctl status'
+fi
 alias pa-speaker="pactl set-sink-port 0 analog-output-speaker"
 alias pa-dock="pactl set-sink-port 0 analog-output"
 alias pa-headphones="pactl set-sink-port 0 analog-output-headphones"
-alias git=hub
+if exists hub; then
+	alias git=hub
+fi
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 
 alias -g S='>/dev/null 2>&1 &'
 
-alias -s pdf="okular"
-
-function okular  { command okular  $* >/dev/null 2>&1 &; }
-function dolphin { command dolphin $* >/dev/null 2>&1 &; }
+if exists okular; then
+	alias -s pdf="okular"
+	function okular  { command okular  $* >/dev/null 2>&1 &; }
+fi
+if exists ncmpcpp; then
+	alias mpd="ncmpcpp"
+	alias mpc="ncmpcpp"
+	alias now-playing="ncmpcpp --now-playing"
+fi
+if exists dolphin; then
+	function dolphin { command dolphin $* >/dev/null 2>&1 &; }
+fi
 
 function uml {
 	cat $1 | plantuml -tsvg -p | inkscape --without-gui --export-pdf=/dev/stdout /dev/stdin 2>/dev/null >! $(basename $1 .txt).pdf
-}
-
-function dev() {
-	sudo systemctl ${1:-start} \
-		mongodb    \
-		postgresql \
-		tomcat6    \
-		php-fpm    \
-		nginx
 }
 
 function calc() {
@@ -106,18 +138,22 @@ function json-get() {
 	curl -s "$1" | python -m json.tool
 }
 
-function format-xml() {
-	T=$(tempfile)
-	cat $1 > $T
-	xmllint --format $T > $1
-	rm -f $T
-}
+if exists xmllint; then
+	function format-xml() {
+		T=$(tempfile)
+		cat $1 > $T
+		xmllint --format $T > $1
+		rm -f $T
+	}
+fi
 
-function create_database {
-	psql -U postgres -c "DROP DATABASE IF EXISTS $1;"
-	psql -U postgres -c "CREATE DATABASE $1;"
-	psql -U postgres -d $1 -c "CREATE EXTENSION postgis;"
-}
+if exists psql; then
+	function create_database {
+		psql -U postgres -c "DROP DATABASE IF EXISTS $1;"
+		psql -U postgres -c "CREATE DATABASE $1;"
+		psql -U postgres -d $1 -c "CREATE EXTENSION postgis;"
+	}
+fi
 
 function rdesktop {
 	local _user=$(echo $1 | cut -d '@' -f1 )
