@@ -155,11 +155,17 @@ if exists psql; then
 	}
 fi
 
-function rdesktop {
-	local _user=$(echo $1 | cut -d '@' -f1 )
-	local _host=$(echo $1 | cut -d '@' -f2-)
-	command rdesktop -u ${_user} -p $(pass show Remote/${_host}/${_user}) ${_host}
-}
+if exists rdesktop; then
+	if exists pass; then
+		function rdesktop {
+			local _user _host _domain
+			IFS=@ read _user _host <<< "${1}"
+			IFS=\\ read _domain _user <<< "${_user}"
+			echo -E command rdesktop -k de -T "$1" -g '1680x1050' -u "${_domain:+${_domain}\\\\}${_user}" -p $(pass show Remote/${_host}/${_domain:+${_domain}/}${_user}) ${_host}
+			command rdesktop -k de -T "$1" -g '1680x1050' -u "${_domain:+${_domain}\\}${_user}" -p $(pass show Remote/${_host}/${_domain:+${_domain}/}${_user}) ${_host}
+		}
+	fi
+fi
 
 cdpath=('.' '..' '~' '/media' /var/run/media/$USER)
 zstyle ':completion:*:complete:(cd|pushd):*' tag-order \
