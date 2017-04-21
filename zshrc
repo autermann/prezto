@@ -161,7 +161,11 @@ if exists rdesktop; then
 			local _user _host _domain
 			IFS=@ read _user _host <<< "${1}"
 			IFS=\\ read _domain _user <<< "${_user}"
-			command rdesktop -k de -T "$1" -g '1680x1050' -u "${_domain:+${_domain}\\}${_user}" -p $(pass show Remote/${_host}/${_domain:+${_domain}/}${_user}) ${_host}
+			if [ -z "${_user}" ]; then
+				_user=${_domain}
+				_domain=
+			fi
+			command rdesktop -k de -T "$1" -f -u "${_domain:+${_domain}\\}${_user}" -p $(pass show Remote/${_host}/${_domain:+${_domain}/}${_user}) ${_host}
 		}
 	fi
 fi
