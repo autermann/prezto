@@ -166,7 +166,7 @@ if exists rdesktop; then
 	fi
 fi
 
-cdpath=('.' '..' '~' '/media' /var/run/media/$USER)
+cdpath=('.'  '~' '/media' /var/run/media/$USER)
 zstyle ':completion:*:complete:(cd|pushd):*' tag-order \
 	'local-directories named-directories path-directories'
 zstyle ':completion:*' group-name ''
