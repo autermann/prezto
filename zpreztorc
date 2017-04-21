@@ -23,7 +23,10 @@ zstyle ':prezto:load' pmodule \
 	'git' \
 	'syntax-highlighting' \
 	'history-substring-search' \
-	'prompt'
+	'prompt' \
+	'ruby' \
+	'node'
+
 
 
 zstyle ':prezto:module:editor' key-bindings 'vi'
