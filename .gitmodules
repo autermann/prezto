@@ -1,6 +1,6 @@
 [submodule "prezto/modules/autosuggestions/external"]
 	path = prezto/modules/autosuggestions/external
-	url = https://github.com/zsh-users/zsh-autosuggestions
+	url = https://github.com/zsh-users/zsh-autosuggestions.git
 [submodule "prezto/modules/history-substring-search/external"]
 	path = prezto/modules/history-substring-search/external
 	url = https://github.com/zsh-users/zsh-history-substring-search.git
