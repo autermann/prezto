@@ -28,6 +28,7 @@ if (( $+commands[$_pacman_frontend] )); then
     source "${0:h}/${_pacman_frontend}.zsh"
   fi
 else
+  _pacman_frontend='pacman'
   _pacman_sudo='sudo '
 fi
 
@@ -36,7 +37,7 @@ fi
 #
 
 # Pacman.
-alias pac= "${_pacman_frontend}"
+alias pac="${_pacman_frontend}"
 
 # Installs packages from repositories.
 alias paci="${_pacman_sudo}${_pacman_frontend} --sync"
@@ -69,9 +70,9 @@ alias pacman-list-orphans="${_pacman_sudo}${_pacman_frontend} --query --deps --u
 alias pacman-remove-orphans="${_pacman_sudo}${_pacman_frontend} --remove --recursive \$(${_pacman_frontend} --quiet --query --deps --unrequired)"
 
 # Synchronizes the local package and Arch Build System databases against the
-# repositories.
-if (( $+commands[abs] )); then
-  alias pacu="${_pacman_sudo}${_pacman_frontend} --sync --refresh && ${_pacman_sudo}abs"
+# repositories using the asp tool.
+if (( $+commands[asp] )); then
+  alias pacu="${_pacman_sudo}${_pacman_frontend} --sync --refresh && sudo asp update"
 else
   alias pacu="${_pacman_sudo}${_pacman_frontend} --sync --refresh"
 fi
@@ -81,4 +82,3 @@ fi
 alias pacU="${_pacman_sudo}${_pacman_frontend} --sync --refresh --sysupgrade"
 
 unset _pacman_{frontend,sudo}
-

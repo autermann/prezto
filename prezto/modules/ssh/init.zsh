@@ -6,7 +6,7 @@
 #
 
 # Return if requirements are not found.
-if [[ "$OSTYPE" == darwin* ]] || (( ! $+commands[ssh-agent] )); then
+if (( ! $+commands[ssh-agent] )); then
   return 1
 fi
 
@@ -14,10 +14,10 @@ fi
 _ssh_dir="$HOME/.ssh"
 
 # Set the path to the environment file if not set by another module.
-_ssh_agent_env="${_ssh_agent_env:-${TMPDIR:-/tmp}/ssh-agent.env}"
+_ssh_agent_env="${_ssh_agent_env:-${TMPDIR:-/tmp}/ssh-agent.env.$UID}"
 
 # Set the path to the persistent authentication socket.
-_ssh_agent_sock="${TMPDIR:-/tmp}/ssh-agent.sock"
+_ssh_agent_sock="${TMPDIR:-/tmp}/ssh-agent.sock.$UID"
 
 # Start ssh-agent if not started.
 if [[ ! -S "$SSH_AUTH_SOCK" ]]; then
@@ -25,7 +25,7 @@ if [[ ! -S "$SSH_AUTH_SOCK" ]]; then
   source "$_ssh_agent_env" 2> /dev/null
 
   # Start ssh-agent if not started.
-  if ! ps -U "$USER" -o pid,ucomm | grep -q "${SSH_AGENT_PID} ssh-agent"; then
+  if ! ps -U "$LOGNAME" -o pid,ucomm | grep -q -- "${SSH_AGENT_PID:--1} ssh-agent"; then
     eval "$(ssh-agent | sed '/^echo /d' | tee "$_ssh_agent_env")"
   fi
 fi
@@ -48,4 +48,3 @@ fi
 
 # Clean up.
 unset _ssh_{dir,identities} _ssh_agent_{env,sock}
-
