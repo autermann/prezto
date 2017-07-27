@@ -8,62 +8,25 @@
 #
 # Browser
 #
-
-if [[ "$OSTYPE" == darwin* ]]; then
-  export BROWSER='open'
-else
-  export BROWSER='google-chrome'
-fi
-
-#
-# Editors
-#
-
+export BROWSER='google-chrome'
 export EDITOR='vim'
-export VISUAL='vim'
+export VISUAL="$EDITOR"
 export PAGER='less'
 
-#
-# Language
-#
-
-if [[ -z "$LANG" ]]; then
-  export LANG='en_US.UTF-8'
-fi
-
-#
-# Paths
-#
+[[ -z "$LANG" ]] && export LANG='en_US.UTF-8'
 
 typeset -gU cdpath fpath mailpath path
 
-# Set the the list of directories that cd searches.
-# cdpath=(
-#   $cdpath
-# )
-
 # Set the list of directories that Zsh searches for programs.
-path=(
-  /usr/local/{bin,sbin}
-  $path
-)
+path=(/usr/local/{bin,sbin} $path)
 
-#
-# Less
-#
+cdpath=('.'  '~' "/var/run/media/$USER")
 
-# Set the default Less options.
 export LESS='-g -i -M -R -w -z-4'
 
-# Set the Less input preprocessor.
-# Try both `lesspipe` and `lesspipe.sh` as either might exist on a system.
 if (( $#commands[(i)lesspipe(|.sh)] )); then
   export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
 fi
-
-#
-# Temporary Files
-#
 
 if [[ ! -d "$TMPDIR" ]]; then
   export TMPDIR="$(mktemp -d)"
@@ -72,3 +35,5 @@ fi
 TMPPREFIX="${TMPDIR%/}/zsh"
 
 DEFAULT_USER=autermann
+
+export GOPATH="${HOME}/Source/go"

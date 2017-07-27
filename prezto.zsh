@@ -35,8 +35,5 @@ zstyle ':prezto:module:git:status:ignore' submodules 'all'
 zstyle ':prezto:module:pacman' frontend 'yaourt'
 zstyle ':prezto:module:prompt' theme 'agnoster'
 zstyle ':prezto:module:syntax-highlighting' highlighters \
-	'main' \
-	'brackets' \
-	'pattern' \
-	'cursor'
+	'main' 'brackets' 'pattern' 'cursor'
 zstyle ':prezto:module:terminal' auto-title 'yes'
