@@ -29,8 +29,31 @@ alias lss='ls -l *(s,S,t) --group-directories-first'
 alias lssmall='ls -Srl *(.oL[1,10]) --group-directories-first'
 alias lsw='ls -ld *(R,W,X.^ND/) --group-directories-first'
 alias lsx='ls -l *(*) --group-directories-first'
-
 alias cl="clear"
+alias mv="mv -i"
+alias cp="cp -i"
+alias ln="ln -i"
+alias rm="rm -I --preserve-root"
+alias chown="chown --preserve-root"
+alias chmod="chmod --preserve-root"
+alias chgrp="chgrp --preserve-root"
+alias shutdown="sudo shutdown"
+alias reboot="sudo reboot"
+alias poweroff="sudo poweroff"
+alias cpuinfo="lscpu"
+alias meminfo="free -m -l -t"
+alias psmem="ps auxf | sort -nr -k 4"
+alias pscpu="ps auxf | sort -nr -k 3"
+alias ctrl="systemctl"
+alias grep='grep --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias -g S='>/dev/null 2>&1 &'
+
+if exists mpv; then
+	alias mp="mpv"
+	alias mplayer="mpv"
+fi
 
 if exists colordiff; then
 	alias diff="colordiff -u"
@@ -43,23 +66,6 @@ if exists rsync; then
 	alias exfat-rsync='command rsync -rLvW --size-only --delete'
 fi
 
-alias mv="mv -i"
-alias cp="cp -i"
-alias ln="ln -i"
-alias rm="rm -I --preserve-root"
-alias chown="chown --preserve-root"
-alias chmod="chmod --preserve-root"
-alias chgrp="chgrp --preserve-root"
-
-alias shutdown="sudo shutdown"
-alias reboot="sudo reboot"
-alias poweroff="sudo poweroff"
-
-alias cpuinfo="lscpu"
-alias meminfo="free -m -l -t"
-alias psmem="ps auxf | sort -nr -k 4"
-alias pscpu="ps auxf | sort -nr -k 3"
-
 if exists wget; then
 	alias wget="wget -c"
 fi
@@ -68,23 +74,34 @@ if exists htop; then
 	alias top="htop"
 fi
 
-alias pacman="sudo pacman"
-alias p="sudo pacman"
-alias y="yaourt"
-alias ctrl="systemctl"
-alias mp="mplayer"
+if exists pacman; then
+	alias pacman="sudo pacman"
+	alias p="sudo pacman"
+fi
+
+if exists yaourt; then
+	alias y="yaourt"
+fi
+
+
 if exists cower; then
 	alias cower='cower --color=auto'
 fi
+
 if exists tlp-stat; then
 	alias batt='sudo tlp-stat -b'
 fi
+
 if exists perl-rename; then
 	alias perl-rename='perl-rename -i'
 	alias prename='perl-rename -i'
 fi
-alias encrypt='openssl enc -a -salt -aes-256-cbc'
-alias decrypt='encrypt -d'
+
+if exists openssl; then
+	alias encrypt='openssl enc -a -salt -aes-256-cbc'
+	alias decrypt='encrypt -d'
+fi
+
 if exists systemctl; then
 	alias start='sudo systemctl start'
 	alias stop='sudo systemctl stop'
@@ -93,29 +110,47 @@ if exists systemctl; then
 	alias enable='sudo systemctl enable'
 	alias disable='sudo systemctl disable'
 fi
-alias pa-speaker="pactl set-sink-port 0 analog-output-speaker"
-alias pa-dock="pactl set-sink-port 0 analog-output"
-alias pa-headphones="pactl set-sink-port 0 analog-output-headphones"
+
+if exists pactl; then
+	alias pa-speaker="pactl set-sink-port 0 analog-output-speaker"
+	alias pa-dock="pactl set-sink-port 0 analog-output"
+	alias pa-headphones="pactl set-sink-port 0 analog-output-headphones"
+fi
+
 if exists hub; then
 	alias git=hub
 fi
-alias grep='grep --color=auto'
-alias egrep='egrep --color=auto'
-alias fgrep='fgrep --color=auto'
-
-alias -g S='>/dev/null 2>&1 &'
 
 if exists okular; then
-	alias -s pdf="okular"
-	function okular  { command okular  $* >/dev/null 2>&1 &; }
+	for t in {p,P}{d,D}{f,F}; do
+		alias -s $t="okular"
+	done
+	function okular { command okular $* >/dev/null 2>&1 &; }
+elif exists evince; then
+	for t in {p,P}{d,D}{f,F}; do
+		alias -s $t="evince"
+	done
+	function evince { command evince $* >/dev/null 2>&1 &; }
 fi
+
+if exists eog; then
+	for t in {j,J}{p,P}{,{e,E}}{g,G} {p,P}{n,N}{g,G} {g,G}{i,I}{f,F} {b,B}{m,M}{p,P}; do
+		alias -s $t="eog"
+    done
+	function eog { command eog $* >/dev/null 2>&1 &; }
+fi
+
+
 if exists ncmpcpp; then
 	alias mpd="ncmpcpp"
 	alias mpc="ncmpcpp"
 	alias now-playing="ncmpcpp --now-playing"
 fi
+
 if exists dolphin; then
 	function dolphin { command dolphin $* >/dev/null 2>&1 &; }
+elif if exists nautilus; then
+	function nautilus { command nautilus $* >/dev/null 2>&1 &; }
 fi
 
 if exists plantuml; then
@@ -152,6 +187,13 @@ if exists psql; then
 		psql -U postgres -c "DROP DATABASE IF EXISTS $1;"
 		psql -U postgres -c "CREATE DATABASE $1;"
 		psql -U postgres -d $1 -c "CREATE EXTENSION postgis;"
+	}
+fi
+
+if exists docker; then
+	function docker-update {
+		docker image ls --format '{{.Repository}}:{{.Tag}}' | grep -v ':<none>$' | parallel docker image pull
+		docker image prune -f
 	}
 fi
 
