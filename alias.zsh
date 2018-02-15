@@ -149,7 +149,7 @@ fi
 
 if exists dolphin; then
 	function dolphin { command dolphin $* >/dev/null 2>&1 &; }
-elif if exists nautilus; then
+elif exists nautilus; then
 	function nautilus { command nautilus $* >/dev/null 2>&1 &; }
 fi
 
