@@ -1,13 +1,3 @@
-#
-# Defines environment variables.
-#
-# Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
-
-#
-# Browser
-#
 export BROWSER='google-chrome'
 export EDITOR='vim'
 export VISUAL="$EDITOR"
@@ -37,3 +27,4 @@ TMPPREFIX="${TMPDIR%/}/zsh"
 DEFAULT_USER=autermann
 
 export GOPATH="${HOME}/Source/go"
+path=($GOPATH/bin $path)
