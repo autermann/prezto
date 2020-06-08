@@ -214,6 +214,9 @@ if exists jq; then
 
 		curl -s https://registry.hub.docker.com/v1/repositories/${image}/tags | jq -r '.[].name'
 	}
+	function yq() {
+		yaml2json | jq "$@" | json2yaml
+	}
 fi
 
 function yaml2json() {
