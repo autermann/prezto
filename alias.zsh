@@ -170,10 +170,10 @@ fi
 
 if exists xmllint; then
 	function format-xml() {
-		T=$(tempfile)
-		cat $1 > $T
-		xmllint --format $T > $1
-		rm -f $T
+		T=$(mktemp)
+		chmod --reference="$1" "$T"
+		xmllint --format "$1" >! "$T"
+		mv -f "$T" "$1"
 	}
 fi
 
