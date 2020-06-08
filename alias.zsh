@@ -206,3 +206,12 @@ if exists rdesktop; then
 		}
 	fi
 fi
+
+
+if exists jq; then
+	function docker-tags {
+		local image="$1"
+
+		curl -s https://registry.hub.docker.com/v1/repositories/${image}/tags | jq -r '.[].name'
+	}
+fi
