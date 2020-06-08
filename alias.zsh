@@ -215,3 +215,33 @@ if exists jq; then
 		curl -s https://registry.hub.docker.com/v1/repositories/${image}/tags | jq -r '.[].name'
 	}
 fi
+
+function yaml2json() {
+  local FILE SCRIPT='
+import sys, json, yaml;
+json.dump(yaml.safe_load(sys.stdin.read()), sys.stdout)
+'
+  if [ $# -gt 0 ]; then
+    for FILE in "$@"; do 
+      python -c "${SCRIPT}" <"${FILE}"
+    done
+  else
+    python -c "${SCRIPT}"
+  fi
+}
+
+function json2yaml() {
+  local FILE SCRIPT='
+import sys, yaml, json;
+yaml.safe_dump(json.load(sys.stdin), sys.stdout, default_flow_style=False, indent=2)
+'
+  if [ $# -gt 0 ]; then
+    for FILE in "$@"; do 
+      python -c "${SCRIPT}" <"${FILE}"
+    done
+  else
+    python -c "${SCRIPT}"
+  fi
+}
+
+alias xclip="xclip -selection clipboard"
