@@ -32,7 +32,7 @@ zstyle ':prezto:load' pmodule \
 zstyle ':prezto:module:editor' key-bindings 'vi'
 zstyle ':prezto:module:editor' dot-expansion 'yes'
 zstyle ':prezto:module:git:status:ignore' submodules 'all'
-zstyle ':prezto:module:pacman' frontend 'yaourt'
+zstyle ':prezto:module:pacman' frontend 'yay'
 zstyle ':prezto:module:prompt' theme 'agnoster'
 zstyle ':prezto:module:syntax-highlighting' highlighters \
 	'main' 'brackets' 'pattern' 'cursor'

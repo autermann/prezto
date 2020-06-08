@@ -74,15 +74,9 @@ if exists htop; then
 	alias top="htop"
 fi
 
-if exists pacman; then
-	alias pacman="sudo pacman"
-	alias p="sudo pacman"
+if exists yay; then
+	alias y="yay"
 fi
-
-if exists yaourt; then
-	alias y="yaourt"
-fi
-
 
 if exists cower; then
 	alias cower='cower --color=auto'
