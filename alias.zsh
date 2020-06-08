@@ -156,6 +156,7 @@ fi
 function calc() {
 	echo $(($*));
 }
+alias calc='noglob calc'
 
 if exists pygmentize; then
 	function json-get() {
