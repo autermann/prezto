@@ -5,6 +5,8 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
+# function ruby-app-root {
+
 local root_dir="$PWD"
 
 while [[ "$root_dir" != '/' ]]; do
@@ -17,3 +19,4 @@ done
 
 return 1
 
+# }

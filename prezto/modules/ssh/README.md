@@ -3,9 +3,6 @@ SSH
 
 Provides for an easier use of [SSH][1] by setting up [ssh-agent][2].
 
-This module is disabled on Mac OS X due to custom Apple SSH support rendering it
-unnecessary.
-
 Settings
 --------
 
@@ -13,7 +10,9 @@ Settings
 
 To load multiple identities, add the following line to *zpreztorc*:
 
-    zstyle ':prezto:module:ssh:load' identities 'id_rsa' 'id_dsa' 'id_github'
+```sh
+zstyle ':prezto:module:ssh:load' identities 'id_rsa' 'id_dsa' 'id_github'
+```
 
 Authors
 -------
@@ -25,4 +24,3 @@ Authors
 [1]: http://www.openssh.com
 [2]: http://www.openbsd.org/cgi-bin/man.cgi?query=ssh-agent&sektion=1
 [3]: https://github.com/sorin-ionescu/prezto/issues
-

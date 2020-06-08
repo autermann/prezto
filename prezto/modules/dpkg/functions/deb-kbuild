@@ -6,6 +6,8 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
+# function deb-kbuild {
+
 make-kpkg clean
 MAKEFLAGS='' time fakeroot make-kpkg \
   --append-to-version '-custom' \
@@ -13,3 +15,4 @@ MAKEFLAGS='' time fakeroot make-kpkg \
   kernel_image \
   kernel_headers
 
+# }

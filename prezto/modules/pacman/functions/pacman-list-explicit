@@ -6,6 +6,8 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
+# function pacman-list-explicit {
+
 pacman --query --explicit --info \
   | awk '
       BEGIN {
@@ -19,3 +21,4 @@ pacman --query --explicit --info \
       }
     '
 
+# }

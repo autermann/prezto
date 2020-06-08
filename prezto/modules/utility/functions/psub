@@ -5,6 +5,8 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
+# function psub {
+
 local usage pattern replacement modifiers
 
 usage="$(
@@ -52,3 +54,4 @@ repeat 2 shift
 
 perl -i'.orig' -n -l -e "s/${pattern//\//\\/}/${replacement//\//\\/}/${modifiers}; print" "$@"
 
+# }

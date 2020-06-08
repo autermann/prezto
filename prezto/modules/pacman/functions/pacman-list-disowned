@@ -6,11 +6,13 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
-local tmp="${TMPDIR:-/tmp}/pacman-disowned-$UID-$$"
+# function pacman-list-disowned {
+
+local tmp="${XDG_CACHE_HOME:-$HOME/.cache}/prezto/pacman-disowned-$$"
 local db="$tmp/db"
 local fs="$tmp/fs"
 
-mkdir "$tmp"
+mkdir -p "$tmp"
 trap  'rm -rf "$tmp"' EXIT
 
 pacman --quiet --query --list | sort --unique > "$db"
@@ -21,3 +23,4 @@ find /bin /etc /lib /sbin /usr \
 
 comm -23 "$fs" "$db"
 
+# }
